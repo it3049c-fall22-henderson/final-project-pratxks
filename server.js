@@ -29,6 +29,7 @@ io.on("connection", function (socket)
 
     clients[socket.id] = socket;
 
+    // 1. disconnect event handler
     //handling disconnect event of socket 
     socket.on("disconnect", () => {
         console.log("ID of Left Player: ", socket.id);
@@ -54,6 +55,7 @@ io.on("connection", function (socket)
         });
     }
 
+    // 2. playerClicking event handler
     // handling player clicking event for perticular cell
     socket.on("playerClicking", function (data)
     {
@@ -69,6 +71,8 @@ io.on("connection", function (socket)
         otherPlayer(socket).emit("playerClicked", data);
     });
 
+    // 3. disconnect event handler when player leaves the game
+
     //handling disconnect event for player left the game
     socket.on("disconnect", function ()
     {
@@ -79,6 +83,7 @@ io.on("connection", function (socket)
     });
 });
 
+// 4. Join function for intializing player socket data
 function join(socket)
 {
     players[socket.id] =
